@@ -1,0 +1,99 @@
+@import url('https://fonts.googleapis.com/css2?family=PT+Sans:ital,wght@0,400;0,700;1,400;1,700&family=Inter:wght@400;500;600;700&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-display: "PT Sans", "Inter", sans-serif;
+  --font-sans: "PT Sans", "Inter", sans-serif;
+
+  --color-onyx: #07191E;
+  --color-spring-green: #02F5A1;
+  --color-ghana-gold: #FCD116;
+  --color-ghana-red: #CE1126;
+  --color-modern-bg: #F8FAFC;
+  --color-modern-card: #FFFFFF;
+}
+
+@layer base {
+  body {
+    @apply bg-modern-bg text-onyx font-sans antialiased selection:bg-spring-green/30;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-display tracking-tight font-bold;
+  }
+}
+
+/* User Requested Font Helpers */
+.pt-sans-regular {
+  font-family: "PT Sans", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.pt-sans-bold {
+  font-family: "PT Sans", sans-serif;
+  font-weight: 700;
+  font-style: normal;
+}
+
+.pt-sans-regular-italic {
+  font-family: "PT Sans", sans-serif;
+  font-weight: 400;
+  font-style: italic;
+}
+
+.pt-sans-bold-italic {
+  font-family: "PT Sans", sans-serif;
+  font-weight: 700;
+  font-style: italic;
+}
+
+/* Subtle Modern Pattern */
+.modern-grid {
+  background-image: radial-gradient(circle at 1px 1px, #07191E08 1.5px, transparent 0);
+  background-size: 24px 24px;
+}
+
+.modern-gradient {
+  background: linear-gradient(135deg, #07191E 0%, #1a3a44 100%);
+}
+
+.step-indicator-active {
+  @apply bg-spring-green w-12 shadow-[0_0_15px_rgba(2,245,161,0.5)] h-2 rounded-full;
+}
+
+.step-indicator-inactive {
+  @apply bg-gray-200 w-3 h-2 rounded-full;
+}
+
+.btn-primary {
+  @apply bg-onyx text-white font-bold py-5 px-8 rounded-full flex items-center justify-center gap-2 transition-all shadow-[0_10px_30px_rgba(7,25,30,0.2)] hover:shadow-[0_15px_40px_rgba(7,25,30,0.3)] hover:scale-[1.02] active:scale-[0.98] disabled:bg-gray-300 disabled:text-white disabled:shadow-none;
+}
+
+.btn-accent {
+  @apply bg-spring-green text-onyx font-bold py-5 px-8 rounded-full flex items-center justify-center gap-2 transition-all shadow-[0_10px_25px_rgba(2,245,161,0.2)] hover:shadow-[0_15px_35px_rgba(2,245,161,0.3)] hover:scale-[1.02] active:scale-[0.98];
+}
+
+.btn-secondary {
+  @apply bg-white text-onyx font-bold py-5 px-8 rounded-full border border-gray-200 flex items-center justify-center gap-2 transition-all hover:bg-gray-50 shadow-sm active:scale-95;
+}
+
+.input-field {
+  @apply w-full p-5 rounded-full border border-gray-100 bg-white focus:border-onyx outline-none transition-all font-medium placeholder:text-gray-300 shadow-sm;
+}
+
+.choice-chip {
+  @apply p-6 rounded-[2rem] border transition-all text-left flex items-center justify-between;
+}
+
+.choice-chip-active {
+  @apply border-spring-green bg-spring-green/5 shadow-inner ring-1 ring-spring-green/20;
+}
+
+.choice-chip-inactive {
+  @apply border-gray-50 bg-white hover:border-gray-200;
+}
+
+.glass-header {
+  @apply bg-white/70 backdrop-blur-xl border-b border-white/20 sticky top-0 z-50;
+}

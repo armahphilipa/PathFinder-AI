@@ -1,0 +1,6 @@
+{
+  "name": "PathFinder AI",
+  "description": "High-fidelity career mapping and professional alignment for Ghana's next generation. AI-powered GPS for career roadmaps and scholarship matching.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["AI Career Matching", "Career Roadmaps", "Scholarship Alignment"]
+}

@@ -1,0 +1,81 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // 0. Default Deny
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // Phase 3: Primitives
+    function isSignedIn() { return request.auth != null; }
+    function isOwner(userId) { return isSignedIn() && request.auth.uid == userId; }
+    function isAdmin() { return isSignedIn() && exists(/databases/$(database)/documents/admins/$(request.auth.uid)); }
+    function incoming() { return request.resource.data; }
+    function existing() { return resource.data; }
+    function isValidId(id) { return id is string && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$'); }
+
+    // Phase 4: Match Blocks
+
+    match /users/{userId} {
+      function isValidUser(data) {
+        return data.keys().hasAll(['uid', 'name', 'region', 'educationLevel']) &&
+               data.uid == request.auth.uid &&
+               data.name is string && data.name.size() <= 100 &&
+               data.region is string &&
+               data.educationLevel is string;
+      }
+
+      allow get: if isOwner(userId) || isAdmin();
+      allow list: if isAdmin();
+      allow create: if isOwner(userId) && isValidUser(incoming()) && incoming().createdAt == request.time;
+      allow update: if isOwner(userId) && (
+        incoming().diff(existing()).affectedKeys().hasOnly(['name', 'age', 'region', 'educationLevel', 'interests', 'grades', 'pathwayType', 'incomeTarget', 'financialNeed', 'updatedAt']) &&
+        isValidUser(incoming()) &&
+        incoming().updatedAt == request.time
+      );
+    }
+
+    match /careerPaths/{careerId} {
+      function isValidCareerPath(data) {
+        return data.keys().hasAll(['id', 'title', 'sector']) &&
+               data.id is string && data.title is string && data.sector is string &&
+               (!('details' in data) || (data.details is string && data.details.size() <= 2000));
+      }
+      allow read: if true;
+      allow write: if isAdmin() && isValidCareerPath(incoming());
+    }
+
+    match /institutions/{instId} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+    match /scholarships/{scholId} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+    match /roadmaps/{roadmapId} {
+      function isValidRoadmap(data) {
+        return data.userId == request.auth.uid &&
+               data.careerId is string &&
+               data.title is string && data.title.size() <= 200;
+      }
+
+      allow read: if isSignedIn() && (resource.data.userId == request.auth.uid || isAdmin());
+      allow list: if isSignedIn() && (resource.data.userId == request.auth.uid || isAdmin());
+      allow create: if isSignedIn() && isValidRoadmap(incoming()) && incoming().createdAt == request.time;
+      allow update: if isOwner(existing().userId) && (
+        incoming().diff(existing()).affectedKeys().hasOnly(['status', 'steps', 'updatedAt']) &&
+        isValidRoadmap(incoming()) &&
+        incoming().updatedAt == request.time
+      );
+      allow delete: if isOwner(existing().userId);
+    }
+    
+    match /admins/{adminId} {
+      allow read: if isSignedIn();
+    }
+  }
+}

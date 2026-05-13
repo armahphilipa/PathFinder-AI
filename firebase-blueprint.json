@@ -1,0 +1,111 @@
+{
+  "entities": {
+    "User": {
+      "title": "User Profile",
+      "description": "Information about a young Ghanaian student using PathFinder AI.",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string", "description": "Firebase Auth UID" },
+        "name": { "type": "string" },
+        "age": { "type": "number" },
+        "region": { "type": "string" },
+        "educationLevel": { "type": "string" },
+        "language": { "type": "string" },
+        "phone": { "type": "string" },
+        "grades": { "type": "object" },
+        "interests": { "type": "array" },
+        "pathwayType": { "type": "string" },
+        "incomeTarget": { "type": "string" },
+        "financialNeed": { "type": "boolean" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["uid", "name", "region", "educationLevel"]
+    },
+    "CareerPath": {
+      "title": "Career Path",
+      "description": "A node in the Ghanaian Career Ontology.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "title": { "type": "string" },
+        "sector": { "type": "string" },
+        "description": { "type": "string" },
+        "salaryRange": { "type": "string" },
+        "outlook": { "type": "string" },
+        "futureProof": { "type": "boolean" },
+        "pathwayType": { "type": "string" },
+        "isVocational": { "type": "boolean" },
+        "details": { "type": "string", "description": "In-depth information about the career role." }
+      },
+      "required": ["id", "title", "sector"]
+    },
+    "Roadmap": {
+      "title": "Active Career Plan",
+      "description": "A student's personalized step-by-step career journey.",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "careerId": { "type": "string" },
+        "title": { "type": "string" },
+        "status": { "type": "string", "enum": ["active", "completed", "archived"] },
+        "steps": { 
+          "type": "array",
+          "items": { "type": "object" }
+        },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["userId", "careerId", "title"]
+    },
+    "Institution": {
+      "title": "Educational Institution",
+      "description": "An accredited university, polytechnic, or TVET centre in Ghana.",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string" },
+        "region": { "type": "string" },
+        "type": { "type": "string" },
+        "location": { "type": "object" },
+        "programmes": { "type": "array" },
+        "contact": { "type": "string" },
+        "isVerified": { "type": "boolean" }
+      },
+      "required": ["name", "region", "type"]
+    },
+    "Scholarship": {
+      "title": "Funding Opportunity",
+      "description": "A scholarship or grant available to Ghanaian students.",
+      "type": "object",
+      "properties": {
+        "provider": { "type": "string" },
+        "title": { "type": "string" },
+        "value": { "type": "string" },
+        "deadline": { "type": "string", "format": "date-time" },
+        "eligibility": { "type": "object" }
+      },
+      "required": ["provider", "title", "deadline"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "User",
+      "description": "Private user profiles"
+    },
+    "/careerPaths/{careerId}": {
+      "schema": "CareerPath",
+      "description": "Public career ontology data"
+    },
+    "/institutions/{instId}": {
+      "schema": "Institution",
+      "description": "Public directory of training providers"
+    },
+    "/scholarships/{scholId}": {
+      "schema": "Scholarship",
+      "description": "Public database of funding opportunities"
+    },
+    "/roadmaps/{roadmapId}": {
+      "schema": "Roadmap",
+      "description": "User specific career roadmaps"
+    }
+  }
+}
