@@ -37,7 +37,7 @@ export default function LandingPage({ onStart, profile }: LandingPageProps) {
             animate={{ opacity: 1, y: 0 }}
             className="inline-flex items-center gap-2 px-4 py-2 bg-spring-green/10 text-onyx/80 rounded-full text-xs font-bold border border-spring-green/20"
           >
-            <Sparkles size={14} className="text-[#02F5A1]" /> AI-Powered Career Guidance for Ghana
+            AI-Powered Career Guidance for Ghana
           </motion.div>
 
           <motion.h1
@@ -309,7 +309,7 @@ export default function LandingPage({ onStart, profile }: LandingPageProps) {
             <div className="space-y-10 relative z-10">
               <button 
                 onClick={onStart}
-                className="bg-[#EFBF04] text-[#07191E] font-bold py-6 px-16 rounded-[2rem] text-2xl flex items-center justify-center gap-6 mx-auto hover:bg-[#FCD116] transition-all transform hover:scale-105 active:scale-95 shadow-xl"
+                className="bg-[#EFBF04] text-[#07191E] font-medium md:font-bold md:py-6 md:px-16 rounded-[2rem] text-lg md:text-2xl flex items-center justify-center gap-6 mx-auto hover:bg-[#FCD116] transition-all transform hover:scale-105 active:scale-95 shadow-xl"
               >
                 Start Free Assessment <ArrowRight size={32} strokeWidth={2} />
               </button>
