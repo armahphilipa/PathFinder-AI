@@ -309,7 +309,7 @@ export default function LandingPage({ onStart, profile }: LandingPageProps) {
             <div className="space-y-10 relative z-10">
               <button 
                 onClick={onStart}
-                className="bg-[#EFBF04] text-[#07191E] font-medium md:font-bold px-[4px] py-2 md:py-6 md:px-16 rounded-[2rem] text-lg md:text-2xl flex items-center justify-center gap-6 mx-auto hover:bg-[#FCD116] transition-all transform hover:scale-105 active:scale-95 shadow-xl"
+                className="bg-[#EFBF04] text-[#07191E] font-medium md:font-bold px-[6px] py-2 md:py-6 md:px-16 rounded-[2rem] text-lg md:text-2xl flex items-center justify-center gap-3 md:gap-6 mx-auto hover:bg-[#FCD116] transition-all transform hover:scale-105 active:scale-95 shadow-xl"
               >
                 Start Free Assessment <ArrowRight size={32} strokeWidth={2} />
               </button>
